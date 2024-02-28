@@ -21,15 +21,14 @@ RUN go install github.com/cosmtrek/air@latest && \
 
 COPY . .
 
-CMD ["air", "-c", ".air.toml"]
+CMD [ "air", "-c", ".air.toml" ]
 
 FROM build-base AS build-production
 
 # Add non root user
 RUN useradd -u 1001 nonroot
 
-COPY . .
-
+COPY . . 
 # Compile healthcheck
 RUN go build \
   -ldflags="-linkmode external -extldflags -static" \
